@@ -8,10 +8,10 @@ The repository includes several labs, some of which may not be fully completed y
 
 Labs Structure
 
-	•	lab0: [Description of Lab 0]
-	•	lab1: [Description of Lab 1]
-	•	lab2: [Description of Lab 2]
-	•	lab3: [Description of Lab 3]
+	•	lab0: [gold.cpp]
+	•	lab1: [TicTacToe]
+	•	lab2: [Connect4]
+	•	lab3: [Blackjack]
 	•	lab4: [Description of Lab 4]
 	•	lab5: [Description of Lab 5]
 	•	lab6: [Description of Lab 6]
