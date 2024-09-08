@@ -1,4 +1,4 @@
-#COSC202 Labs
+# COSC202 Labs
 
 This repository contains the lab assignments for the COSC202 course at the University of Tennessee.
 
