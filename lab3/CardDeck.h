@@ -2,16 +2,19 @@
 #define CARDDECK_H 
 
 #include <iostream>
+#include <algorithm>
+using namespace std;
 
 class CardDeck {
 
 private:
     int size;
-    int deck[52];
+    int* deck; //updated member function to use dynamic memory
 
 public:
 
     void shuffle();
+    void print();
     int getSize();
 
     CardDeck();                 // default construcor
