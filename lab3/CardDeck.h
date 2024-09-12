@@ -9,7 +9,7 @@ class CardDeck {
 
 private:
     int size;
-    int* deck; //updated member function to use dynamic memory
+    int* deck; // updated member function to use dynamic memory
 
 public:
 
@@ -21,7 +21,7 @@ public:
     CardDeck(const CardDeck &); // copy constructor
     ~CardDeck();                // destructor
 
-    const CardDeck& operator=(const CardDeck& ); // assignment operator
+    CardDeck& operator=(const CardDeck &CardDeckToCopy); // assignment operator
 
 };
 
