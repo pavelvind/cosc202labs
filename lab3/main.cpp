@@ -11,7 +11,7 @@ This program allows two players to play blackjack.
 using namespace std;
 
 int main() {
-  CardDeck * deck;      // pointer to a single C4Board object
+  CardDeck * deck;      
   deck = new CardDeck;  // dynamically allocates memory for a CardDeck object and calls the CardDeck constructor to initialize the deck
 
   // print carddeck ordered 
@@ -22,5 +22,26 @@ int main() {
   cout << endl << "Printing shuffled deck. " << endl;
   deck->shuffle();
   deck->print();
+
   
+  
+}
+
+void play(){
+    
+    // Draw Cards --> deal()
+
+    // Keep Track of Remaining Cards --> deal()
+
+    // Handle the Player and Dealer Turn
+
+    // Interactive loop
+    bool gamOver;
+    while(gamOver != true){
+
+        //playerHand.push_back()
+        
+    }
+    
+
 }
