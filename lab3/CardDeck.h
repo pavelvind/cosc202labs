@@ -27,10 +27,6 @@ private:
     int index = 52; // Keeps track of what place are we in deck (deal function)
     static const char card_faces[13];  
     static const int card_values[13];
-    int playerScore;
-    int dealerScore;
-    vector<int> playerHand;
-    vector<int> dealerHand;
     bool gamOver;
 
 
