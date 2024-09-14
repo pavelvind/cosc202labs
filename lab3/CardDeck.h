@@ -15,7 +15,7 @@ public:
     int getSize();
     int play();
 
-    CardDeck(int n = 52);             // Non default Parameter con
+    CardDeck(int n = 52);        // Non default Parameter constructor
     CardDeck(const CardDeck &); // Copy constructor
     ~CardDeck();               // Destructor
 
@@ -23,7 +23,7 @@ public:
 
 private:
     int size;
-    int* deck;       // Updated member function to use dynamic memory
+    int* deck;  // Updated member function to use dynamic memory
     int index; // Keeps track of what place are we in deck (deal function)
     static const char card_faces[13];  
     static const int card_values[13];

@@ -76,25 +76,27 @@ void CardDeck::shuffle(){
     random_shuffle(deck, deck + size);  // Shuffle the deck array
 }
 
+int CardDeck::getSize() {
+    return size;
+}
 
 
 // Return the card value
 int CardDeck::deal() {
     if (index <= 15) {
         cout << "Fewer than 15 cards left. Creating a new deck and shuffling.." << endl;
-        delete[] deck;  // Free the old deck memory
-        deck = new int[size];  // Allocate a new deck array
-        for (int i = 0; i < size; i++) {
-            deck[i] = i + 1;
-        }
-        shuffle();
-        index = size - 1;
+
+        CardDeck newDeck(size);  // Create a new deck with the same size
+        newDeck.shuffle();  // Shuffle the new deck
+        
+        *this = newDeck;  // Use the assignment operator to copy the new deck to the current object
+        index = size - 1;        // Reset 
     }
-    
-    int cardIndex = deck[index] % 13;  // Get the card index (0 to 12)
+
+    int cardIndex = deck[index] % 13;  // Get the card index 
     index--;
     
-    return card_values[cardIndex];  // Return the correct card value using the card_values array
+    return card_values[cardIndex];     
 }
 
     

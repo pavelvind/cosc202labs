@@ -6,9 +6,10 @@ student id 000697226
 This program allows two players to play blackjack.
  */
 
-#include "CardDeck.h"   // class definition for CardDeck used below
+#include "CardDeck.h"   // Class definition for CardDeck used below
 #include <iomanip>
 #include <ctime> // So the cards are shuffled correctly
+
 
 using namespace std;
 
@@ -18,9 +19,13 @@ void play(CardDeck& deck) {
     int playerScore = 0;
     int dealerScore = 0;
     int blackJack = 21;
+    int playerWins = 0;  
+     int dealerWins = 0;
 
+    // Interactive loop
     bool gameOver = false;
     while (!gameOver) {
+      
         vector<int> playerHand;
         vector<int> dealerHand;
 
@@ -32,13 +37,14 @@ void play(CardDeck& deck) {
         dealerHand.push_back(deck.deal());
         dealerHand.push_back(deck.deal());
 
+        // Calculate the hand totals 
         int playerTotalHand = playerHand[0] + playerHand[1];
         int dealerTotalHand = dealerHand[0] + dealerHand[1];
 
         cout << "Player total hand: " << playerTotalHand << endl;
         cout << "Dealer total hand: " << dealerTotalHand << endl;
 
-        // Dealer's turn to hit if necessary
+        // Dealer's turn to hit 
         while (dealerTotalHand < 17) {
             int newCard = deck.deal();
             dealerHand.push_back(newCard);
@@ -48,6 +54,7 @@ void play(CardDeck& deck) {
 
             if (dealerTotalHand > blackJack) {
                 cout << "Dealer busted!" << endl;
+                playerWins++;
                 break;
             }
         }
@@ -66,6 +73,7 @@ void play(CardDeck& deck) {
 
             if (playerTotalHand > blackJack) {
                 cout << "Player busted!" << endl;
+                dealerWins++;
                 break;
             }
 
@@ -77,12 +85,17 @@ void play(CardDeck& deck) {
         if (playerTotalHand <= blackJack && dealerTotalHand <= blackJack) {
             if (dealerTotalHand > playerTotalHand) {
                 cout << "Dealer won!" << endl;
+                dealerWins++;  // Increment dealer wins
             } else if (playerTotalHand > dealerTotalHand) {
                 cout << "Player won!" << endl;
+                playerWins++;  // Increment player wins
             } else {
                 cout << "It's a tie!" << endl;
             }
         }
+
+        // Display the total wins for both player and dealer
+        cout << "Player Wins: " << playerWins << " | Dealer Wins: " << dealerWins << endl;
 
         // Ask if the player wants to play again
         char playAgain;
@@ -99,13 +112,13 @@ void play(CardDeck& deck) {
 
 int main() {
   CardDeck * deck;      
-  deck = new CardDeck;  // dynamically allocates memory for a CardDeck object and calls the CardDeck constructor to initialize the deck
+  deck = new CardDeck;  // Dynamically allocates memory for a CardDeck object and calls the CardDeck constructor to initialize the deck
 
-  // print carddeck ordered 
+  // Print carddeck ordered 
   cout << endl << "Printing ordered deck. " << endl;
   deck->print();  // Use '->' instead of '.' because 'deck' is a pointer to an object
 
-  // print shuffled deck 
+  // Print shuffled deck 
   cout << endl << "Printing shuffled deck. " << endl;
   deck->shuffle();
   deck->print();
