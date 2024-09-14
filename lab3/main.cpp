@@ -17,6 +17,7 @@ void play(CardDeck& deck) {
     char hitOrStand;
     int playerScore = 0;
     int dealerScore = 0;
+    int blackJack = 21;
     vector<int> playerHand;
     vector<int> dealerHand;
 
@@ -35,21 +36,76 @@ void play(CardDeck& deck) {
         // Card 3
         dealerHand.push_back(deck.deal());
 
-        int playerStartHand = playerHand[0]+playerHand[1];
-        int dealerStartHand = dealerHand[0]+dealerHand[1];
+        int playerTotalHand = playerHand[0]+playerHand[1];
+        int dealerTotalHand = dealerHand[0]+dealerHand[1];
 
-        cout << "Player total hand:" << playerHand[0]+playerHand[1] << endl;
-        cout << "Dealer total hand:" << dealerHand[0]+dealerHand[1] << endl;
+        cout << "Player total hand:" << playerTotalHand << endl;
+        cout << "Dealer total hand:" << dealerTotalHand << endl;
 
+        // Dealer hits
+        while(dealerTotalHand < 17){
+          int newCard = deck.deal(); 
+          dealerHand.push_back(newCard);
+          dealerTotalHand += newCard;
+        
+          cout << "Dealer draws: " << newCard << ". Dealer's total: " << dealerTotalHand << endl;
+
+
+          if(dealerTotalHand > blackJack){
+            cout << "Dealer busted!" << endl;
+            break;
+            
+          }
+          
+        }
+        // Player
         cout << "Player: Hit or Stand (Type 'h' or 's')?" << endl;
         cin >> hitOrStand;
 
-        while(hitOrStand = 'h'){
+        while(hitOrStand == 'h'){
+        
+          cout << "Player chose to hit!" << endl;
+          int newCard = deck.deal();  // Deal a new card to the player
+          playerHand.push_back(newCard);
+          playerTotalHand += newCard;
 
-          cout << "Player chose t hit!" << endl;
+          cout << "Player draws: " << newCard << ". Player's total: " << playerTotalHand << endl;
+
+
+          if(playerTotalHand > blackJack){
+            cout << "Player busted!" << endl;
+            break;
+          }
+
+          cout << "Player: Hit or Stand (Type 'h' for hit or 's' for stand)? ";
+          cin >> hitOrStand;
         }
 
-        
+        if (hitOrStand == 's') {
+            break;  // Exit the hit loop if the player stands
+        }
+
+        // Compare hands if no one busted
+        if (playerTotalHand <= blackJack && dealerTotalHand <= blackJack) {
+            if (dealerTotalHand > playerTotalHand) {
+                cout << "Dealer won!" << endl;
+            } else if (playerTotalHand > dealerTotalHand) {
+                cout << "Player won!" << endl;
+            } else {
+                cout << "It's a tie!" << endl;
+            }
+        }
+
+        // Would you like to play again?// Ask if the player wants to play again
+        char playAgain;
+        cout << "Would you like to play again? (y/n): ";
+        cin >> playAgain;
+
+        if (playAgain == 'n') {
+            gameOver = true;
+        } else {
+            deck.shuffle();  // Shuffle the deck for the next round
+        }
 
     }
 
