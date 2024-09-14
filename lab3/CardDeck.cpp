@@ -13,6 +13,7 @@ CardDeck::CardDeck(int n) {
     for (int i = 0; i < size; i++) {
         deck[i] = i + 1;  
     }
+    index = size-1;
     
 }
 
@@ -63,40 +64,37 @@ CardDeck& CardDeck::operator=(const CardDeck &CardDeckToCopy) {
 
 void CardDeck::print(){
     size = 52; 
-    for (int i = 0; i < size; i++){
+    for (int i = 0; i < 10; i++){
         cout << deck[i] << " ";
     }
     cout << endl;
 }
 
 void CardDeck::shuffle(){
+
+    srand(time(0)); 
     random_shuffle(deck, deck + size);  // Shuffle the deck array
 }
 
 
 
 // Return the card value
-int CardDeck::deal(){
-    
-    if(index > 16){
-    // Decrement index to point to the next card in the deck
-    index--;
-    int card = deck[index] % 13;
-    
-    return card;}
-    
-    else{
+int CardDeck::deal() {
+    if (index <= 15) {
         cout << "Fewer than 15 cards left. Creating a new deck and shuffling.." << endl;
-        
-        // CardDeck::~CardDeck();  (Called atomatically)
-
-        // Use assignment operator
-        *this = CardDeck(size);
-        
+        delete[] deck;  // Free the old deck memory
+        deck = new int[size];  // Allocate a new deck array
+        for (int i = 0; i < size; i++) {
+            deck[i] = i + 1;
+        }
         shuffle();
         index = size - 1;
-        return deck[index] % 13;  // Deal the top card from the reshuffled deck
     }
+    
+    int cardIndex = deck[index] % 13;  // Get the card index (0 to 12)
+    index--;
+    
+    return card_values[cardIndex];  // Return the correct card value using the card_values array
 }
 
     

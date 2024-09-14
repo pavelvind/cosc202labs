@@ -24,7 +24,7 @@ public:
 private:
     int size;
     int* deck;       // Updated member function to use dynamic memory
-    int index = 52; // Keeps track of what place are we in deck (deal function)
+    int index; // Keeps track of what place are we in deck (deal function)
     static const char card_faces[13];  
     static const int card_values[13];
     bool gamOver;
