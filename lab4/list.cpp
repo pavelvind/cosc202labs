@@ -1,4 +1,14 @@
 #include "list.h"
+// List constructor
+List::List(){
+    head = nullptr;
+}
+
+// Node cosntructor
+Node::Node(int value) {
+        data = value;
+        next = nullptr;     
+    }
 
 // Destructor for linkedList
 List::~List(){
@@ -13,11 +23,11 @@ List::~List(){
 void List::appendNode(const int &value){
     Node* newNode = new Node(value);
     if(head == nullptr){
-        newNode = head;
+        head =newNode;
     }
     else{
         Node* temp = head;
-        while(temp != nullptr){
+        while(temp->next != nullptr){
             temp = temp->next;
         }
         temp->next = newNode;
@@ -29,7 +39,17 @@ void List::appendNode(const int &value){
 void List::storeNumber(List &list, int num){ // cin << num1 << num2;
     numStr = to_string(num);
     for(int i = 0; i < numStr.size(); i++){
-        int digit = numStr[i] - '0'; // ASCII table
+        int digit = numStr[i] - '0'; // ASCII
         list.appendNode(digit);
     }
+}
+
+// Print fucntion
+void List::print(){
+    Node* temp = head;
+    while(temp != nullptr){
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+    cout << endl;
 }
