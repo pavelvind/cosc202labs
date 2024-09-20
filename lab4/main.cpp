@@ -13,8 +13,14 @@ int main(int argc, char *argv[]) {
     List List1;
     List List2;
 
+    
     List1.storeNumber(List1, num1);
     List2.storeNumber(List2, num2);
+
+    List1.print();
+    List2.print();
+
+    
 
     return 0;
 }

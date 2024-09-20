@@ -14,7 +14,7 @@ class List {
 
 public:
 void appendNode(const int &); // Pass by reference
-void addList();              // Take two linked lists, representing two integers and return a new linked list 
+void addList(List, List);              // Take two linked lists, representing two integers and return a new linked list 
 void storeNumber(List &List, int num);
 void print();
 

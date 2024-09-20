@@ -35,21 +35,30 @@ void List::appendNode(const int &value){
     
 }
 
-// Store number to linkedlist function 
+// Store number to linkedlist function (456 = 6 -> 5 -> 4 -> null_ptr)
 void List::storeNumber(List &list, int num){ // cin << num1 << num2;
     numStr = to_string(num);
-    for(int i = 0; i < numStr.size(); i++){
+    for(int i = numStr.size() - 1; i > -1 ; i--){
         int digit = numStr[i] - '0'; // ASCII
         list.appendNode(digit);
     }
 }
 
+// Reverse function
+
+
 // Print fucntion
 void List::print(){
     Node* temp = head;
     while(temp != nullptr){
-        cout << temp->data << " ";
+        cout << temp->data;
         temp = temp->next;
     }
     cout << endl;
 }
+
+// Sum the numbers
+void List::addList(List, List){
+        
+
+    }
