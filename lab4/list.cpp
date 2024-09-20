@@ -10,6 +10,8 @@ Node::Node(int value) {
         next = nullptr;     
     }
 
+
+
 // Destructor for linkedList
 List::~List(){
     Node* temp = head;
@@ -57,8 +59,17 @@ void List::print(){
     cout << endl;
 }
 
-// Sum the numbers
-void List::addList(List, List){
-        
 
-    }
+// Sum the numbers
+List List::addList(List& List1, List& List2){
+   
+    Node* temp1 = List1.head;
+    Node* temp2 = List2.head;
+    List result;
+
+    // If both lists are not empty
+    
+
+    return result;
+
+}
