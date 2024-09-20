@@ -20,9 +20,13 @@ int main(int argc, char *argv[]) {
     List1.print();
     List2.print();
 
+    List result = List1.addList(List1, List2);    
+    result.print();
     
 
     return 0;
 }
+
+
 
 

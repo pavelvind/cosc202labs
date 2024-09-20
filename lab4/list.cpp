@@ -66,8 +66,31 @@ List List::addList(List& List1, List& List2){
     Node* temp1 = List1.head;
     Node* temp2 = List2.head;
     List result;
+    int carry = 0;
 
-    // If both lists are not empty
+    while ((temp1 != nullptr) || (temp2 != nullptr) || (carry != 0)) {
+        
+        // Start with the carry value
+        int sumDigit = carry;
+
+        // Add data from List1 if temp1 is not null
+        if (temp1 != nullptr) {
+            sumDigit += temp1->data;
+            temp1 = temp1->next;  
+        }
+
+        // Add data from List2 if temp2 is not null
+        if (temp2 != nullptr) {
+            sumDigit += temp2->data;
+            temp2 = temp2->next;  
+        }
+
+        // When sum is >=10 carry++
+        carry = sumDigit / 10;
+        
+        // Append the last digit of sumDigit to the result
+        result.appendNode(sumDigit % 10);
+    }
     
 
     return result;
