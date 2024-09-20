@@ -38,16 +38,30 @@ void List::appendNode(const int &value){
 }
 
 // Store number to linkedlist function (456 = 6 -> 5 -> 4 -> null_ptr)
-void List::storeNumber(List &list, int num){ // cin << num1 << num2;
-    numStr = to_string(num);
-    for(int i = numStr.size() - 1; i > -1 ; i--){
-        int digit = numStr[i] - '0'; // ASCII
-        list.appendNode(digit);
+void List::storeNumber(string num){ // cin << num1 << num2;
+    //numStr = to_string(num);
+    for(int i = num.size() - 1; i > -1 ; i--){
+        char ch = num[i];
+        int digit = num[i] - '0'; // ASCII
+        appendNode(digit);
     }
 }
 
 // Reverse function
-
+void List::reverse(){
+    
+    Node* prev = nullptr;
+    Node* temp = head;
+    Node* next = nullptr;
+    while(temp != nullptr){
+        next = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = next;
+        
+    }
+    head = prev;
+}
 
 // Print fucntion
 void List::print(){

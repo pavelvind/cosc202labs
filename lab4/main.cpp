@@ -2,27 +2,28 @@
 #include "list.h"
 
 int main(int argc, char *argv[]) {
-
-
-    // Load the numbers
-    int num1;
-    int num2;
-    cin >> num1 >> num2;
+    string num1Str, num2Str;
+    List List1, List2;
+    while(cin >> num1Str >> num2Str){
+    
 
     // Add them to linked list
-    List List1;
-    List List2;
 
     
-    List1.storeNumber(List1, num1);
-    List2.storeNumber(List2, num2);
+    List1.storeNumber(num1Str);
+    List2.storeNumber(num2Str);
 
-    List1.print();
-    List2.print();
+    //List1.print();
+    //List2.print();
 
     List result = List1.addList(List1, List2);    
+    result.List::reverse();
     result.print();
     
+    // Clear lists for next iteration
+    List1 = List();
+    List2 = List();
+    }
 
     return 0;
 }
