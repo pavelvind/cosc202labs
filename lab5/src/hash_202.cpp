@@ -95,6 +95,8 @@ string Hash_202::Add(const string &key, const string &val)
 
   // Error check COMPLETE ->
 
+    // Hash functions:
+
     // Last 7
     if(Fxn == 1){
       int last7int = hashLast7(key);
@@ -106,7 +108,8 @@ string Hash_202::Add(const string &key, const string &val)
       index = hashXOR(key);
     }
 
-    // Collisions
+    // Collisions:
+
     // Linear probing
     if(Coll == 'L'){
       while(!Keys[index].empty()){
