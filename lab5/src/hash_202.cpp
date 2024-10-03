@@ -96,7 +96,7 @@ string Hash_202::Add(const string &key, const string &val)
       xorResult = smallKey;
     }
     // Split into chunks of 7 
-    for(int i = 0; i < key.size(); i += 7){
+    for(size_t i = 0; i < key.size(); i += 7){
       string chunk = key.substr(i, 7);
 
       // Convert the chunk into an integer
@@ -134,6 +134,11 @@ string Hash_202::Find(const string &key)
 void Hash_202::Print() const
 {
   // Use printf 
+  for(size_t i = 0; i < Keys.size(); i++){
+    if (!Keys[i].empty()) { // To print only the occupied entries
+      printf("%s %s\n", Keys[i].c_str(), Vals[i].c_str());
+    }
+  }
 }
 
 size_t Hash_202::Total_Probes()

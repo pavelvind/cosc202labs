@@ -2,7 +2,7 @@
 #include <vector>
 #include <sstream>
 #include <string>
-
+#include <cstdio>
 
 class Hash_202 {
 
