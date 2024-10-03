@@ -85,7 +85,7 @@ string Hash_202::Add(const string &key, const string &val)
         if(Keys[index] == key){
           return "Key already in the table";
         }
-        index = (index + 1) % table_size; // This ensures i dont go out of bounds of the table
+        index = (index + 1) %  Keys.size(); // This ensures i dont go out of bounds of the table
       }
     
       Keys[index] = key;
@@ -93,10 +93,46 @@ string Hash_202::Add(const string &key, const string &val)
       Nkeys++;
   }
 
-  // Last7 and XOR
-  if(Fxn == 1 && Coll == 'D'){
-
+  // XOR and linear probing
+  if(Fxn == 0 && Coll == 'L'){
     
+    unsigned int xorResult = 0;
+
+    // Create ss object to store the hex val
+    stringstream ss;
+    int smallKey;
+    // Check if the key is smaller than 7
+    if(key.length() <= 7){
+      ss << key;
+      ss >> hex >> smallKey;
+      xorResult = smallKey;
+    }
+    // Split into chunks of 7 
+    for(int i = 0; i < key.size(); i += 7){
+      string chunk = key.substr(i, 7);
+
+      // Convert the chunk into an integer
+            stringstream ss;
+            int chunkValue;
+            ss << chunk;              
+            ss >> hex >> chunkValue; 
+            xorResult ^= chunkValue;
+    }
+    int index = xorResult % Keys.size();
+
+    // Linear probing
+    
+      while(!Keys[index].empty()){
+        if(Keys[index] == key){
+          return "Key already in the table";
+        }
+        index = (index + 1) %  Keys.size(); // This ensures i dont go out of bounds of the table
+      }
+    
+      Keys[index] = key;
+      Vals[index] = val;
+      Nkeys++;
+
   }
   return "";
 }
