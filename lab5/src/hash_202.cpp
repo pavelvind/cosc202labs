@@ -6,14 +6,13 @@ string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::st
   (void) table_size;
   (void) fxn;
   (void) collision;
-  return "";
 
 
   // Error check
   if(!Keys.empty()){
     return "Hash table already set up";
   }
-  if(table_size >= 1){
+  if(table_size <= 1){
     return "Bad table size";
   }
   if(fxn != "Last7" && fxn != "XOR"){
