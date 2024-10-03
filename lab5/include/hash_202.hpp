@@ -77,4 +77,5 @@ class Hash_202 {
     size_t Nprobes;                   // When I call Find(), I set this value to the number of probes.
     size_t hashLast7(const string &key);
     size_t hashXOR(const string &key);
+    size_t index;
 };
