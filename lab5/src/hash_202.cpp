@@ -77,11 +77,26 @@ string Hash_202::Add(const string &key, const string &val)
     ss << last7;
     ss >> hex >> last7int;
 
-  int index = last7int % Keys.size();
+    int index = last7int % Keys.size();
 
-  // Linear probing
-  
+    // Linear probing
+    
+      while(!Keys[index].empty()){
+        if(Keys[index] == key){
+          return "Key already in the table";
+        }
+        index = (index + 1) % table_size; // This ensures i dont go out of bounds of the table
+      }
+    
+      Keys[index] = key;
+      Vals[index] = val;
+      Nkeys++;
+  }
 
+  // Last7 and XOR
+  if(Fxn == 1 && Coll == 'D'){
+
+    
   }
   return "";
 }
