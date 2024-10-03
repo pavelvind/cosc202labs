@@ -4,6 +4,8 @@
 #include <string>
 #include <cstdio>
 
+using namespace std;
+
 class Hash_202 {
 
   public:
@@ -73,4 +75,6 @@ class Hash_202 {
     int Fxn;                          // The hash function.  I have 0 = "Xor" and 1 = "Last7".
     int Coll;                         // The collision resolution strategy.  'L' = Linear. 'D' = Double
     size_t Nprobes;                   // When I call Find(), I set this value to the number of probes.
+    size_t hashLast7(const string &key);
+    size_t hashXOR(const string &key);
 };

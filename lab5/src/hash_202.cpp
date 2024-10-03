@@ -1,6 +1,23 @@
 #include "hash_202.hpp"
 using namespace std;
 
+size_t Hash_202::hashLast7(const string &key){
+    string last7;
+    if (key.length() > 7) {
+        last7 = key.substr(key.length() - 7, 7);
+    } else {
+        last7 = key;
+    }
+
+    size_t hashValue = 0;
+
+    stringstream ss;
+    ss << last7;
+    if (!(ss >> hex >> hashValue)) {
+        hashValue = 0;  // If the conversion fails
+    }
+
+    return hashValue;}
 string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::string &collision)
 {
   (void) table_size;
@@ -49,7 +66,7 @@ string Hash_202::Add(const string &key, const string &val)
   (void) key;
   (void) val;
 
-  // Error check
+  // Error check COMPLETE ->
   
   // Last7 and linear probing
   if(Fxn == 1 && Coll == 'L'){
@@ -121,7 +138,62 @@ string Hash_202::Add(const string &key, const string &val)
       Nkeys++;
 
   }
-  return "";
+  // Last7 and Double
+  else if(Fxn == 1 && Coll == 'D'){
+    // Last7
+    // Extract
+    string last7 = key.substr(key.length()-7, 7);
+    // Convert to int
+    int last7int;
+
+    // Create ss object to store the hex val
+    stringstream ssFirst;
+    ssFirst << last7;
+    ssFirst >> hex >> last7int;
+
+    size_t index = last7int % Keys.size();
+  
+
+  // XOR for double hash
+  unsigned int xorResult = 0;
+
+    // Create ss object to store the hex val
+    stringstream ssSecond;
+    int smallKey;
+    // Check if the key is smaller than 7
+    if(key.length() <= 7){
+      ssSecond << key;
+      ssSecond >> hex >> smallKey;
+      xorResult = smallKey;
+    }
+    // Split into chunks of 7 
+    for(size_t i = 0; i < key.size(); i += 7){
+      string chunk = key.substr(i, 7);
+
+      // Convert the chunk into an integer
+            stringstream ssChunk;
+            int chunkValue;
+            ssChunk << chunk;              
+            ssChunk >> hex >> chunkValue; 
+            xorResult ^= chunkValue;
+    }
+    size_t increment = xorResult % Keys.size();
+    if(increment == 0) increment = 1;
+
+  // Collision resolution
+  while(!Keys[index].empty()){
+    if(Keys[index] == key){
+          return "Key already in the table";
+        }
+    index = (index + increment) % Keys.size();
+    
+  }
+  Keys[index] = key;
+  Vals[index] = val;
+  Nkeys++;
+  
+}
+return "";
 }
 
 string Hash_202::Find(const string &key)
