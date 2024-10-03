@@ -17,7 +17,34 @@ size_t Hash_202::hashLast7(const string &key){
         hashValue = 0;  // If the conversion fails
     }
 
-    return hashValue;}
+    return hashValue;
+    }
+
+size_t Hash_202::hashXOR(const string &key){
+    // Create ss object to store the hex val
+    stringstream ss;
+    int smallKey;
+    size_t xorResult;
+    // Check if the key is smaller than 7
+    if(key.length() <= 7){
+      ss << key;
+      ss >> hex >> smallKey;
+      xorResult = smallKey;
+    }
+    // Split into chunks of 7 
+    for(size_t i = 0; i < key.size(); i += 7){
+      string chunk = key.substr(i, 7);
+
+      // Convert the chunk into an integer
+            stringstream ss;
+            int chunkValue;
+            ss << chunk;              
+            ss >> hex >> chunkValue; 
+            xorResult ^= chunkValue;
+    }
+    return xorResult;
+
+}
 string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::string &collision)
 {
   (void) table_size;
