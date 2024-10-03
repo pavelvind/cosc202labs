@@ -92,15 +92,48 @@ string Hash_202::Add(const string &key, const string &val)
 {
   (void) key;
   (void) val;
+  int increment = 0;
+  int attempts  = 0;
 
-  // Error check COMPLETE ->
+  /* Error check COMPLETE -> Add() adds the given key/val pair to the hash table.  If successful, it should return
+       an empty string.  Add should test for the following errors, in this order,
+       and return the given strings:
+
+           - Table not set up:                "Hash table not set up"
+           - Empty string for the key:        "Empty key"
+           - Key not composed of hex digits:  "Bad key (not all hex digits)"
+           - Empty string for the val:        "Empty val"
+           - The hash table is full:          "Hash table full"
+           - Cannot insert key:               "Cannot insert key"
+           - The key is already in the table  "Key already in the table" */
+    if(Keys.empty()){
+      return "Hash table not set up";
+    }
+    if (key.empty())
+    {
+      return "Empty key";
+    }
+    for (size_t i = 0; i < key.length(); ++i) {
+        if (!isxdigit(key[i])) {
+            return "Bad key (not all hex digits)";
+        }}
+    if(val.empty())
+    {
+      return "Empty val";
+    }
+    if (Nkeys > Keys.size())
+    {
+      return "Hash table full";
+    }
+    
+    
 
     // Hash functions:
 
     // Last 7
     if(Fxn == 1){
       int last7int = hashLast7(key);
-      size_t index = last7int % Keys.size();
+      index = last7int % Keys.size();
     }
 
     // XOR hashing
@@ -125,9 +158,46 @@ string Hash_202::Add(const string &key, const string &val)
     }
     // Double hashing
     else{
+      // When 1st function is last7
+      if(Fxn == 1){
+        int increment = hashXOR(key) % Keys.size();
+        if (increment == 0) {
+        increment = 1;  
+    }
+        while(!Keys[index].empty() && attempts < Keys.size()){
+        if(Keys[index] == key){
+          return "Key already in the table";
+        }
+        index = (index + increment) % Keys.size();
+        attempts++;
+        }
+
+        Keys[index] = key;
+        Vals[index] = val;
+        Nkeys++;
+    }
+    // When 1st function is xor
+    else{
+      int increment = hashLast7(key) % Keys.size();
+      while(!Keys[index].empty()){
+        if(Keys[index] == key){
+          return "Key already in the table";
+        }
+      index = (index + increment) % Keys.size();
+      attempts++;
 
     }
+    
+    } 
+}   
+    if (attempts == Keys.size()) {
+        return "Cannot insert key";  // Table is full
+    }
 
+    Keys[index] = key;
+    Vals[index] = val;
+    Nkeys++;
+return "";
 }
 
 

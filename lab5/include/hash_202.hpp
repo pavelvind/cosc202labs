@@ -3,6 +3,8 @@
 #include <sstream>
 #include <string>
 #include <cstdio>
+#include <cctype>
+
 
 using namespace std;
 
