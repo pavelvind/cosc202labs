@@ -7,19 +7,7 @@ string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::st
   (void) fxn;
   (void) collision;
   return "";
-  /*
- You must call Set_Up() to set up the table before using it.  This method 
-       takes the hash table size, a name of a hash function (either "Last7" or "XOR"), and
-       the name of a collision resolution strategy (either "Linear" or "Double").  
- 
-       You should error check your input, and look for the following errors, in the following
-       order.  If you see one of these errors, return the string specified:
 
-       - Table already set up:                "Hash table already set up"
-       - Bad table size:                      "Bad table size"
-       - Bad hash function:                   "Bad hash function"
-       - Bad collision resolution strategy:   "Bad collision resolution strategy"
- */
 
   // Error check
   if(!Keys.empty()){
@@ -94,7 +82,7 @@ string Hash_202::Add(const string &key, const string &val)
   }
 
   // XOR and linear probing
-  if(Fxn == 0 && Coll == 'L'){
+  else if(Fxn == 0 && Coll == 'L'){
     
     unsigned int xorResult = 0;
 
