@@ -13,7 +13,7 @@ string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::st
   if(!Keys.empty()){
     return "Hash table already set up";
   }
-  if(table_size < 0){
+  if(table_size >= 1){
     return "Bad table size";
   }
   if(fxn != "Last7" && fxn != "XOR"){
@@ -65,7 +65,7 @@ string Hash_202::Add(const string &key, const string &val)
     ss << last7;
     ss >> hex >> last7int;
 
-    int index = last7int % Keys.size();
+    size_t index = last7int % Keys.size();
 
     // Linear probing
     
@@ -106,7 +106,7 @@ string Hash_202::Add(const string &key, const string &val)
             ss >> hex >> chunkValue; 
             xorResult ^= chunkValue;
     }
-    int index = xorResult % Keys.size();
+    size_t index = xorResult % Keys.size();
 
     // Linear probing
     
