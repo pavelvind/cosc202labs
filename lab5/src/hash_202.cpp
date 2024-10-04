@@ -4,7 +4,7 @@ using namespace std;
 
 /*
 Pavel Vinduska - lab 5 (hashing)
-Used formating addon (Pretier) 
+Used formating addon (Pretier)
 https://www.programiz.com/cpp-programming/library-function/cctype/isxdigit#:~:text=int%20isxdigit(int%20ch)%3B,by%20the%20current%20C%20locale.
 */
 size_t Hash_202::hashLast7(const string &key)
@@ -133,7 +133,6 @@ string Hash_202::Add(const string &key, const string &val)
   {
     return "Empty val";
   }
- 
 
   // Hash functions:
 
@@ -210,7 +209,7 @@ string Hash_202::Add(const string &key, const string &val)
   }
   if (attempts == (int)Keys.size())
   {
-    return "Cannot insert key"; // Table is full
+    return "Hash table full";
   }
 
   Keys[index] = key;
@@ -218,29 +217,60 @@ string Hash_202::Add(const string &key, const string &val)
   Nkeys++;
   return "";
 }
+/* Find() returns the val associated with the given key.  If the hash table has not been
+       set up yet, or if the key is not in the hash table, or if the key is not composed of
+       all hex digits, it should return an empty string.
 
+       Find() is not const, because it sets the variable Nprobes to equal the number of
+       probes that it took to find the answer. */
 string Hash_202::Find(const string &key)
 {
   (void)key;
+  Nprobes = 0;
+  // Error check
+  if (Keys.empty())
+  {
+    return "";
+  }
+  if (key.empty())
+  {
+    return "";
+  }
+  for (size_t i = 0; i < key.length(); ++i)
+  {
+    if (!isxdigit(key[i]))
+    {
+      return "";
+    }
+  }
+
+  // Find
+
   return "";
 }
 
 void Hash_202::Print() const
 {
-    // Do nothing if the hash table has not been set up
-    if (Keys.empty()) {
-        return;
-    }
+  // Do nothing if the hash table has not been set up
+  if (Keys.empty())
+  {
+    return;
+  }
 
-    // Iterate through the hash table
-    for (size_t i = 0; i < Keys.size(); i++) {
-        if (!Keys[i].empty()) {
-            
-            printf("%5i %s %s\n", (int)i, Keys[i].c_str(), Vals[i].c_str());
-        }
+  // Iterate through the hash table
+  for (size_t i = 0; i < Keys.size(); i++)
+  {
+    if (!Keys[i].empty())
+    {
+
+      printf("%5i %s %s\n", (int)i, Keys[i].c_str(), Vals[i].c_str());
     }
+  }
 }
-
+/* Total_Probes() should traverse the hash table, and for every key, caculcate how many probes
+       it takes find that key.  It should return the total number of probes.  It should
+       return 0 if the hash table has not been set up yet.  It is not const, because it
+       uses Find() to find the number of probes for each key. */
 size_t Hash_202::Total_Probes()
 {
   return 0;
