@@ -127,10 +127,7 @@ string Hash_202::Add(const string &key, const string &val)
   {
     return "Empty val";
   }
-  if (Nkeys > Keys.size())
-  {
-    return "Hash table full";
-  }
+ 
 
   // Hash functions:
 
@@ -194,7 +191,7 @@ string Hash_202::Add(const string &key, const string &val)
     else
     {
       int increment = hashLast7(key) % Keys.size();
-      while (!Keys[index].empty())
+      while (!Keys[index].empty() && attempts < Keys.size())
       {
         if (Keys[index] == key)
         {
@@ -224,14 +221,18 @@ string Hash_202::Find(const string &key)
 
 void Hash_202::Print() const
 {
-  // Use printf
-  for (size_t i = 0; i < Keys.size(); i++)
-  {
-    if (!Keys[i].empty())
-    { // To print only the occupied entries
-      printf("%s %s\n", Keys[i].c_str(), Vals[i].c_str());
+    // Do nothing if the hash table has not been set up
+    if (Keys.empty()) {
+        return;
     }
-  }
+
+    // Iterate through the hash table
+    for (size_t i = 0; i < Keys.size(); i++) {
+        if (!Keys[i].empty()) {
+            
+            printf("%5lu %s %s\n", (int)i, Keys[i].c_str(), Vals[i].c_str());
+        }
+    }
 }
 
 size_t Hash_202::Total_Probes()
