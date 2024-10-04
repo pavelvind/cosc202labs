@@ -113,6 +113,7 @@ string Hash_202::Add(const string &key, const string &val)
   (void)val;
   int attempts = 0;
   int increment = 0;
+  size_t index;
 
   if (Keys.empty())
   {
@@ -227,6 +228,10 @@ string Hash_202::Find(const string &key)
 {
   (void)key;
   Nprobes = 0;
+  int increment = 0;
+  int attempts = 0;
+  size_t index;
+
   // Error check
   if (Keys.empty())
   {
@@ -244,8 +249,70 @@ string Hash_202::Find(const string &key)
     }
   }
 
-  // Find
+  // Calculate hash value to determine "starting position"
+  if (Fxn == 1)
+  {
+    int last7int = hashLast7(key);
+    index = last7int % Keys.size();
+  }
 
+  else
+  {
+    index = hashXOR(key);
+  }
+
+  // Calculate the increment
+
+  if (Coll == 'D')
+  {
+    if (Fxn == 1)
+    {
+      increment = hashXOR(key) % Keys.size();
+    }
+    else
+    {
+      increment = hashLast7(key) % Keys.size();
+    }
+    // Avoid infinte loop
+    if (increment == 0)
+    {
+      increment = 1;
+    }
+  }
+  // Probe till program finds the key
+
+  if (Keys[index] == key)
+  {
+    Nprobes++;
+    return Vals[index];
+  }
+  // Start probing (Linear / Double)
+  while (attempts < (int)Keys.size())
+  {
+    Nprobes++;
+    // If slot empty key isnt there
+    if (Keys[index].empty())
+    {
+      return "The key isnt there";
+    }
+    if (Keys[index] != key)
+    {
+
+      if (Coll == 'D')
+      {
+        index = (index + increment) % Keys.size();
+      }
+      else if (Coll == 'L')
+      {
+        index = (index + 1) % Keys.size();
+      }
+    }
+    else
+    {
+      return Vals[index];
+    }
+    attempts++;
+  }
   return "";
 }
 
