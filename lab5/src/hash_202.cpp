@@ -1,6 +1,12 @@
+
 #include "hash_202.hpp"
 using namespace std;
 
+/*
+Pavel Vinduska - lab 5 (hashing)
+Used formating addon (Pretier) 
+https://www.programiz.com/cpp-programming/library-function/cctype/isxdigit#:~:text=int%20isxdigit(int%20ch)%3B,by%20the%20current%20C%20locale.
+*/
 size_t Hash_202::hashLast7(const string &key)
 {
   string last7;
@@ -105,8 +111,8 @@ string Hash_202::Add(const string &key, const string &val)
 {
   (void)key;
   (void)val;
-  int increment = 0;
   int attempts = 0;
+  int increment = 0;
 
   if (Keys.empty())
   {
@@ -168,12 +174,12 @@ string Hash_202::Add(const string &key, const string &val)
     // When 1st function is last7
     if (Fxn == 1)
     {
-      int increment = hashXOR(key) % Keys.size();
+      increment = hashXOR(key) % Keys.size();
       if (increment == 0)
       {
         increment = 1;
       }
-      while (!Keys[index].empty() && attempts < Keys.size())
+      while (!Keys[index].empty() && attempts < (int)Keys.size())
       {
         if (Keys[index] == key)
         {
@@ -191,7 +197,7 @@ string Hash_202::Add(const string &key, const string &val)
     else
     {
       int increment = hashLast7(key) % Keys.size();
-      while (!Keys[index].empty() && attempts < Keys.size())
+      while (!Keys[index].empty() && attempts < (int)Keys.size())
       {
         if (Keys[index] == key)
         {
@@ -202,7 +208,7 @@ string Hash_202::Add(const string &key, const string &val)
       }
     }
   }
-  if (attempts == Keys.size())
+  if (attempts == (int)Keys.size())
   {
     return "Cannot insert key"; // Table is full
   }
@@ -230,7 +236,7 @@ void Hash_202::Print() const
     for (size_t i = 0; i < Keys.size(); i++) {
         if (!Keys[i].empty()) {
             
-            printf("%5lu %s %s\n", (int)i, Keys[i].c_str(), Vals[i].c_str());
+            printf("%5i %s %s\n", (int)i, Keys[i].c_str(), Vals[i].c_str());
         }
     }
 }
