@@ -36,7 +36,7 @@ size_t Hash_202::hashXOR(const string &key)
   // Create ss object to store the hex val
   stringstream ss;
   int smallKey;
-  size_t xorResult;
+  size_t xorResult = 0;
   // Check if the key is smaller than 7
   if (key.length() <= 7)
   {
@@ -45,16 +45,19 @@ size_t Hash_202::hashXOR(const string &key)
     xorResult = smallKey;
   }
   // Split into chunks of 7
-  for (size_t i = 0; i < key.size(); i += 7)
+  else
   {
-    string chunk = key.substr(i, 7);
+    for (size_t i = 0; i < key.size(); i += 7)
+    {
+      string chunk = key.substr(i, 7);
 
-    // Convert the chunk into an integer
-    stringstream ss;
-    int chunkValue;
-    ss << chunk;
-    ss >> hex >> chunkValue;
-    xorResult ^= chunkValue;
+      // Convert the chunk into an integer
+      stringstream ssChunk;
+      int chunkValue;
+      ssChunk << chunk;
+      ssChunk >> hex >> chunkValue;
+      xorResult ^= chunkValue;
+    }
   }
   return xorResult;
 }
@@ -147,75 +150,72 @@ string Hash_202::Add(const string &key, const string &val)
   // XOR hashing
   else
   {
-    index = hashXOR(key);
+    index = hashXOR(key) % Keys.size();
   }
 
   // Collisions:
 
   // Linear probing
-  if (Coll == 'L')
+  if (Coll == 'L') // Linear Probing
   {
-    while (!Keys[index].empty())
+    increment = 1; // Linear probing increment is always 1
+
+    while (attempts < (int)Keys.size())
+    {
+      if (Keys[index].empty())
+      {
+        // Found empty slot, insert key and value
+        Keys[index] = key;
+        Vals[index] = val;
+        Nkeys++;
+        return "";
+      }
+      else if (Keys[index] == key)
+      {
+        return "Key already in the table";
+      }
+
+      index = (index + increment) % Keys.size(); // Move to next slot
+      attempts++;
+    }
+    return "Hash table full"; // All slots have been checked
+  }
+  // Double hashing
+  else if (Coll == 'D')
+  {
+
+    if (Fxn == 1)
+    {
+      increment = hashXOR(key) % Keys.size();
+    }
+    else
+    {
+      increment = hashLast7(key) % Keys.size();
+    }
+    if (increment == 0)
+    {
+      increment = 1;
+    }
+    // Probing loop
+    while (!Keys[index].empty() && attempts < (int)Keys.size())
     {
       if (Keys[index] == key)
       {
         return "Key already in the table";
       }
-      index = (index + 1) % Keys.size(); // This ensures i dont go out of bounds of the table
+      index = (index + increment) % Keys.size();
+      attempts++;
+    }
+    if (attempts == (int)Keys.size())
+    {
+      return "Hash table full";
     }
 
+    // Add the key and value
     Keys[index] = key;
     Vals[index] = val;
     Nkeys++;
   }
-  // Double hashing
-  else
-  {
-    // When 1st function is last7
-    if (Fxn == 1)
-    {
-      increment = hashXOR(key) % Keys.size();
-      if (increment == 0)
-      {
-        increment = 1;
-      }
-      while (!Keys[index].empty() && attempts < (int)Keys.size())
-      {
-        if (Keys[index] == key)
-        {
-          return "Key already in the table";
-        }
-        index = (index + increment) % Keys.size();
-        attempts++;
-      }
-
-      Keys[index] = key;
-      Vals[index] = val;
-      Nkeys++;
-    }
-    // When 1st function is xor
-    else
-    {
-      int increment = hashLast7(key) % Keys.size();
-      while (!Keys[index].empty() && attempts < (int)Keys.size())
-      {
-        if (Keys[index] == key)
-        {
-          return "Key already in the table";
-        }
-        index = (index + increment) % Keys.size();
-        attempts++;
-      }
-    }
-  }
-  if (attempts == (int)Keys.size())
-  {
-    return "Hash table full";
-  }
-
-  Keys[index] = key;
-  Vals[index] = val;
-  Nkeys++;
   return "";
 }
 /* Find() returns the val associated with the given key.  If the hash table has not been
@@ -227,10 +227,10 @@ string Hash_202::Add(const string &key, const string &val)
 string Hash_202::Find(const string &key)
 {
   (void)key;
-  Nprobes = 0;
   int increment = 0;
   int attempts = 0;
   size_t index;
+  Nprobes = 0;
 
   // Error check
   if (Keys.empty())
@@ -258,7 +258,7 @@ string Hash_202::Find(const string &key)
 
   else
   {
-    index = hashXOR(key);
+    index = hashXOR(key) % Keys.size();
   }
 
   // Calculate the increment
@@ -283,17 +283,16 @@ string Hash_202::Find(const string &key)
 
   if (Keys[index] == key)
   {
-    Nprobes++;
     return Vals[index];
   }
   // Start probing (Linear / Double)
   while (attempts < (int)Keys.size())
   {
-    Nprobes++;
+
     // If slot empty key isnt there
     if (Keys[index].empty())
     {
-      return "The key isnt there";
+      return "";
     }
     if (Keys[index] != key)
     {
@@ -311,6 +310,7 @@ string Hash_202::Find(const string &key)
     {
       return Vals[index];
     }
+    Nprobes++;
     attempts++;
   }
   return "";
@@ -340,5 +340,19 @@ void Hash_202::Print() const
        uses Find() to find the number of probes for each key. */
 size_t Hash_202::Total_Probes()
 {
-  return 0;
+  if (Keys.empty())
+  {
+    return 0;
+  }
+
+  size_t totalProbes = 0;
+  for (size_t i = 0; i < Keys.size(); i++)
+  {
+    if (!Keys[i].empty())
+    {
+      Find(Keys[i]);
+      totalProbes += Nprobes;
+    }
+  }
+  return totalProbes;
 }
