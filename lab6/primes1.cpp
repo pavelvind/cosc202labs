@@ -7,7 +7,6 @@ using namespace std;
 // Sieve of Eratosthenes
 void findPrimes(int num)
 {
-    int cleanDiv = 0;
     int primeCount = 0;
     vector<bool> isPrime(num + 1, true);
     int limit = sqrt(num);
@@ -24,22 +23,21 @@ void findPrimes(int num)
         }
     }
 
-        // Print the primes, 20 per line
-        for (int i = 2; i <= num; ++i)
+    // Print the primes, 20 per line
+    for (int i = 2; i <= num; ++i)
+    {
+        if (isPrime[i])
         {
-            if (isPrime[i])
-            {
-                cout << setw(6) << i;
-                primeCount++;
+            cout << setw(6) << i;
+            primeCount++;
 
-                if (primeCount % 20 == 0)
-                {
-                    cout << endl;
-                }
+            if (primeCount % 20 == 0)
+            {
+                cout << endl;
             }
         }
     }
-
+}
 
 int main(int argc, char *argv[])
 {
