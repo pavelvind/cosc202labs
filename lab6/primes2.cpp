@@ -43,39 +43,40 @@ void findPrimes(int num)
   }
 }
 
+void extendPrimes(int newNum)
+{
+}
+
 int main(int argc, char *argv[])
 {
-  findPrimes(100);
+  findPrimes(10000000);
   int num;
-
-  // Store the input in set
   set<int> s2;
-  while (cin >> num)
-  {
-    s2.insert(num);
-  }
-
-  // Dereference largest input
-  int largestInput = *s2.rbegin();
 
   // Find in the set for the prime
   while (cin >> num)
   {
-    // Check if the largest # in the inputs is bigger than the largest prime in the set
-    int largestPrime = *s1.rbegin(); // Dereferenced reversed iterator (Time complexity: O(1))
-    if (largestInput > largestPrime)
-    {
-    }
+    
+      // Store the input in set
+      //s2.insert(num);
 
-    if (s1.find(num) != s1.end())
-    {
-      cout << "prime" << endl;
+      // Dereference largest input
+      // int largestInput = *s2.rbegin();
+
+      // Check if the largest # in the inputs is bigger than the largest prime in the set
+      int largestPrime = *s1.rbegin(); // Dereferenced reversed iterator (Time complexity: O(1))
+      
+
+      if (s1.find(num) != s1.end())
+      {
+        cout << "prime" << endl;
+      }
+      else
+      {
+        cout << "not prime" << endl;
+      }
     }
-    else
-    {
-      cout << "not prime" << endl;
-    }
-  }
+  
 
   return 0;
 }
