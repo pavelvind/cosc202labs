@@ -1,4 +1,3 @@
-
 #include "hash_202.hpp"
 using namespace std;
 
@@ -6,7 +5,9 @@ using namespace std;
 Pavel Vinduska - lab 5 (hashing)
 Used formating addon (Pretier)
 https://www.programiz.com/cpp-programming/library-function/cctype/isxdigit#:~:text=int%20isxdigit(int%20ch)%3B,by%20the%20current%20C%20locale.
+dr. Scott hints: https://www.youtube.com/watch?v=GOoyxoDsjeM
 */
+
 size_t Hash_202::hashLast7(const string &key)
 {
   string last7;
@@ -61,6 +62,9 @@ size_t Hash_202::hashXOR(const string &key)
   }
   return xorResult;
 }
+
+/*This method takes the hash table size, a name of a hash function (either "Last7" or "XOR"), and
+the name of a collision resolution strategy (either "Linear" or "Double").  */
 string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::string &collision)
 {
   (void)table_size;
@@ -83,6 +87,12 @@ string Hash_202::Set_Up(size_t table_size, const std::string &fxn, const std::st
   if (collision != "Linear" && collision != "Double")
   {
     return "Bad collision resolution strategy";
+  }
+
+  // NEW
+  if (Nkeys == Keys.size())
+  {
+    return "Hash table full";
   }
   // Setup
   Keys.resize(table_size);
@@ -218,12 +228,7 @@ string Hash_202::Add(const string &key, const string &val)
   }
   return "";
 }
-/* Find() returns the val associated with the given key.  If the hash table has not been
-       set up yet, or if the key is not in the hash table, or if the key is not composed of
-       all hex digits, it should return an empty string.
-
-       Find() is not const, because it sets the variable Nprobes to equal the number of
-       probes that it took to find the answer. */
+/* Find() returns the val associated with the given key. */
 string Hash_202::Find(const string &key)
 {
   (void)key;
@@ -335,9 +340,7 @@ void Hash_202::Print() const
   }
 }
 /* Total_Probes() should traverse the hash table, and for every key, caculcate how many probes
-       it takes find that key.  It should return the total number of probes.  It should
-       return 0 if the hash table has not been set up yet.  It is not const, because it
-       uses Find() to find the number of probes for each key. */
+       it takes find that key. */
 size_t Hash_202::Total_Probes()
 {
   if (Keys.empty())
