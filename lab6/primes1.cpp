@@ -16,7 +16,7 @@ void findPrimes(int num)
         if (isPrime[i])
         {
             // Mark multiples of 'i' as non-prime
-            for (int j = i * i; j <= num; j += i)
+            for (long long j = i * i; j <= num; j += i)
             {
                 isPrime[j] = false;
             }

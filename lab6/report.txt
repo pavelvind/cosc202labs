@@ -1,0 +1,23 @@
+1. Runtime using `find()` from the STL:
+   - Run 1: [time]
+   - Run 2: [time]
+   - Run 3: [time]
+
+2. Runtime using a vector where `v[i] == 1` if `i` is prime:
+   - Run 1: [time]
+   - Run 2: [time]
+   - Run 3: [time]
+
+3. Load factor with 2 million primes:
+   - Total primes: [number]
+   - Load factor: [load factor]
+
+4. Runtime using `binary_search()` from the STL:
+   - Run 1: [time]
+   - Run 2: [time]
+   - Run 3: [time]
+
+5. Runtime using `map<int, bool>`:
+   - Run 1: [time]
+   - Run 2: [time]
+   - Run 3: [time]

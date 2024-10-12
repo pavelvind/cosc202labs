@@ -8,7 +8,7 @@ https://www.geeksforgeeks.org/how-to-find-last-element-in-a-set-in-cpp/
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <math.h>
+#include <cmath>
 using namespace std;
 
 // Global
@@ -17,7 +17,6 @@ set<int> s1;
 // Sieve of Eratosthenes
 void findPrimes(int num)
 {
-  int primeCount = 0;
   vector<bool> isPrime(num + 1, true);
   int limit = sqrt(num);
 
@@ -26,7 +25,7 @@ void findPrimes(int num)
     if (isPrime[i])
     {
       // Mark multiples of 'i' as non-prime
-      for (int j = i * i; j <= num; j += i)
+      for (long long j = i * i; j <= num; j += i)
       {
         isPrime[j] = false;
       }
@@ -41,42 +40,55 @@ void findPrimes(int num)
       s1.insert(i);
     }
   }
+  // int largestPrime = *s1.rbegin();
+  // return largestPrime;
 }
 
-void extendPrimes(int newNum)
+int main()
 {
-}
 
-int main(int argc, char *argv[])
-{
-  findPrimes(10000000);
+  /// Vector to store all input numbers
+  vector<int> inputs;
   int num;
-  set<int> s2;
 
-  // Find in the set for the prime
+  // Read all inputs into the vector
   while (cin >> num)
   {
-    
-      // Store the input in set
-      //s2.insert(num);
+    inputs.push_back(num);
+  }
 
-      // Dereference largest input
-      // int largestInput = *s2.rbegin();
+  if (inputs.empty())
+  {
+    cerr << "No input numbers provided." << endl;
+    return 1;
+  }
 
-      // Check if the largest # in the inputs is bigger than the largest prime in the set
-      int largestPrime = *s1.rbegin(); // Dereferenced reversed iterator (Time complexity: O(1))
-      
-
-      if (s1.find(num) != s1.end())
-      {
-        cout << "prime" << endl;
-      }
-      else
-      {
-        cout << "not prime" << endl;
-      }
+  // Find the largest input number
+  int largestInput = inputs[0];
+  for (size_t i = 1; i < inputs.size(); ++i)
+  {
+    if (inputs[i] > largestInput)
+    {
+      largestInput = inputs[i];
     }
-  
+  }
+
+  // Generate primes till the largest input
+  findPrimes(largestInput);
+
+  for (size_t i = 0; i < inputs.size(); ++i)
+  {
+
+    // Find in the set for the prime
+    if (s1.find(inputs[i]) != s1.end())
+    {
+      cout << "prime" << endl;
+    }
+    else
+    {
+      cout << "not prime" << endl;
+    }
+  }
 
   return 0;
 }
