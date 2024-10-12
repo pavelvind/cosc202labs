@@ -18,7 +18,7 @@ set<int> s1;
 void findPrimes(int num)
 {
   vector<bool> isPrime(num + 1, true);
-  int limit = sqrt(num);
+  int limit = static_cast<int>(sqrt(num));
 
   for (int i = 2; i <= limit; ++i)
   {
