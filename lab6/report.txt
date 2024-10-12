@@ -18,6 +18,6 @@ Runtime using `binary_search()` from the STL:
    - Run 3: 0.040
 
 Runtime using `map<int, bool>`:
-   - Run 1: [time]
-   - Run 2: [time]
-   - Run 3: [time]
+   - Run 1: 0.082
+   - Run 2: 0.089
+   - Run 3: 0.090

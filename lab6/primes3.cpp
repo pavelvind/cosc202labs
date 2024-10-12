@@ -1,23 +1,18 @@
 #include <iostream>
-#include <vector>
+#include <map>
 #include <cmath>
-#include <algorithm> 
+#include <vector>
 
 using namespace std;
 
-// Global variables
-vector<bool> isPrime;   
-vector<int> primes;     
-
+map<int, bool> primeMap;
 
 void findPrimes(int num)
 {
-  
-    isPrime.resize(num + 1, true);
-    isPrime[0] = isPrime[1] = false;  
+    vector<bool> isPrime(num + 1, true);
+    isPrime[0] = isPrime[1] = false;
 
     int limit = static_cast<int>(sqrt(num));
-
 
     for (int i = 2; i <= limit; ++i)
     {
@@ -30,23 +25,20 @@ void findPrimes(int num)
         }
     }
 
-    // Collect all prime numbers into the 'primes' vector
     for (int i = 2; i <= num; ++i)
     {
         if (isPrime[i])
         {
-            primes.push_back(i);  // Store the prime number
+            primeMap[i] = true;
         }
     }
 }
 
 int main()
 {
-    /// Vector to store all input numbers
     vector<int> inputs;
     int num;
 
-    // Read all inputs into the vector
     while (cin >> num)
     {
         inputs.push_back(num);
@@ -58,7 +50,6 @@ int main()
         return 1;
     }
 
-    // Find the largest input number to set the sieve limit
     int largestInput = inputs[0];
     for (size_t i = 1; i < inputs.size(); ++i)
     {
@@ -68,13 +59,11 @@ int main()
         }
     }
 
-    // Generate primes up to the largest input number
     findPrimes(largestInput);
 
-    // Use binary_search to check if each input number is prime
     for (size_t i = 0; i < inputs.size(); ++i)
     {
-        if (binary_search(primes.begin(), primes.end(), inputs[i]))
+        if (primeMap.find(inputs[i]) != primeMap.end() && primeMap[inputs[i]])
         {
             cout << "prime" << endl;
         }
