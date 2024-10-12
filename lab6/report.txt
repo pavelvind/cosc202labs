@@ -1,12 +1,12 @@
 1. Runtime using `find()` from the STL:
-   - Run 1: [time]
-   - Run 2: [time]
-   - Run 3: [time]
+   - Run 1: 0.082
+   - Run 2: 0.079
+   - Run 3: 0.080
 
 2. Runtime using a vector where `v[i] == 1` if `i` is prime:
-   - Run 1: [time]
-   - Run 2: [time]
-   - Run 3: [time]
+   - Run 1: 0.089
+   - Run 2: 0.090
+   - Run 3: 0.091
 
 3. Load factor with 2 million primes:
    - Total primes: [number]
