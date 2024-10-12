@@ -1,10 +1,13 @@
+/*
+Lab 6: Is it prime?
+Pavel Vinduska
+*/
 #include <iostream>
 #include <iomanip>
 #include <vector>
 #include <math.h>
 using namespace std;
 
-// Sieve of Eratosthenes
 void findPrimes(int num)
 {
     int primeCount = 0;
@@ -46,12 +49,12 @@ int main(int argc, char *argv[])
         // Convert the first argument to an integer
         int num = stoi(argv[1]);
 
-        // Call findPrimes with the argument value
+        // Call findPrimes with the arg val
         findPrimes(num);
     }
     else
     {
-        cout << "Please provide a number as a command-line argument." << endl;
+        cout << "Please provide a number as a commandline argument." << endl;
     }
     return 0;
 }

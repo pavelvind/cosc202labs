@@ -1,18 +1,18 @@
-Runtime using `find()` from the STL:
+Runtime using find():
    - Run 1: 0.082
    - Run 2: 0.079
    - Run 3: 0.080
 
-Runtime using a vector where `v[i] == 1` if `i` is prime:
+Runtime using a vector where v[i] == 1 :
    - Run 1: 0.030
    - Run 2: 0.027
    - Run 3: 0.027
 
-Load factor with 2 million primes:
+Load factor with 2M primes:
    - Total primes: 148933
-   - Load factor: 0.0744665
+   - Load factor: 0.0744665 (7%)
 
-Runtime using `binary_search()` from the STL:
+Runtime using binary_search():
    - Run 1: 0.040
    - Run 2: 0.041
    - Run 3: 0.040

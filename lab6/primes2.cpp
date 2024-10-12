@@ -1,4 +1,5 @@
 /* Lab 6: Is it prime?
+Pavel Vinduska
 https://www.geeksforgeeks.org/std-find-in-cpp/
 https://www.geeksforgeeks.org/how-to-find-last-element-in-a-set-in-cpp/
 */
@@ -40,8 +41,6 @@ void findPrimes(int num)
       s1.insert(i);
     }
   }
-  // int largestPrime = *s1.rbegin();
-  // return largestPrime;
 }
 
 int main()
