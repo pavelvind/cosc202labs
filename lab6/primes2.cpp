@@ -15,7 +15,6 @@ using namespace std;
 // Global
 set<int> s1;
 
-// Sieve of Eratosthenes
 void findPrimes(int num)
 {
   vector<bool> isPrime(num + 1, true);
