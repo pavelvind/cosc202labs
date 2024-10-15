@@ -37,4 +37,7 @@ int main()
 {
     vector<int> nums;
     int pos = 0;
+
+    num.resize(100000);
+    enumerate (nums, pos);
 }
