@@ -5,6 +5,7 @@ using namespace std;
 
 void enumerate(vector<int> &v, int pos)
 {
+    // All queens are placed
     if (pos == 8)
     {
         vector<bool> duplicate(8, false); // Initialize with 8 elements set to false
@@ -34,10 +35,12 @@ void enumerate(vector<int> &v, int pos)
         }
     }
     else
-    {
+    {   
+        // Recursive case
         for (int i = 0; i < 8; i++)
         {
             v[pos] = i;
+            // Recursive call
             enumerate(v, pos + 1);
         }
     }
