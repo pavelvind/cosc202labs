@@ -10,28 +10,35 @@ using namespace std;
 void nqueens(vector<int> &board, int col, int size)
 {
 
-  int row = board[col];
   // Recursive case
   if (col < size)
   {
-    
-      board[col] = row; // Place queen
+    for (int row = 0; row < size; ++row)
+    {
+      board[col] = row; // Place queen at row col
+
       // Recursive call -> move in cols till i reach the boardsize
       nqueens(board, col + 1, size);
-    
+      
+    }
   }
-  // Base case
+  // Base case => All queens are placed
   else if (col == size)
   {
     // Board is valid
-    if(isValid){
+    if(isValid(board, size, col)){
       print(board);
     }
+    return;
+    
+    /*
     // If false -> go back one recursion and start the board with the qlueen one spot lower
+    
     else{
-      row++;
+      // Go back one col
       nqueens(board, col - 1, size);
     }
+    */
   }
 }
 // Proper nqueen board without duplicates in row cols diagonals
@@ -47,15 +54,15 @@ bool isValid(const vector<int> &board, int size, int col)
     }
     if (rowCount[board[i]] > 1)
     {
-      return false; // Duplicate row found
+      return false; // Duplicate
     }
   }
 
   // Diagonal check
   for(int i = 0; i < col; ++i)
     {
-        if(abs(board[i] - board[col]) == abs(i - col))
-            return false; // Diagonal conflict
+      if (abs(board[i] - board[col]) == abs(i - col))
+        return false; // Duplicate
     }
     
     return true;
