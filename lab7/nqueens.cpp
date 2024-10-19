@@ -7,65 +7,24 @@ using namespace std;
 
 // Recursive function
 // Recursive call: Putting a new queen on the board and increment col
-void nqueens(vector<int> &board, int col, int size)
-{
-
-  // Recursive case
-  if (col < size)
-  {
-    for (int row = 0; row < size; ++row)
-    {
-      board[col] = row; // Place queen at row col
-
-      // Recursive call -> move in cols till i reach the boardsize
-      nqueens(board, col + 1, size);
-      
-    }
-  }
-  // Base case => All queens are placed
-  else if (col == size)
-  {
-    // Board is valid
-    if(isValid(board, size, col)){
-      print(board);
-    }
-    return;
-    
-    /*
-    // If false -> go back one recursion and start the board with the qlueen one spot lower
-    
-    else{
-      // Go back one col
-      nqueens(board, col - 1, size);
-    }
-    */
-  }
-}
 // Proper nqueen board without duplicates in row cols diagonals
 bool isValid(const vector<int> &board, int size, int col)
 {
-  // Row check
-  vector<int> rowCount(size, 0);
+  // Check for conflicts between all pairs of queens
   for (int i = 0; i < size; ++i)
   {
-    if (board[i] != -1)
+    for (int j = i + 1; j < size; ++j)
     {
-      rowCount[board[i]]++;
-    }
-    if (rowCount[board[i]] > 1)
-    {
-      return false; // Duplicate
+      // Check if queens are in the same row
+      if (board[i] == board[j])
+        return false;
+
+      // Check if queens are in the same diagonal
+      if (abs(board[i] - board[j]) == abs(i - j))
+        return false;
     }
   }
-
-  // Diagonal check
-  for(int i = 0; i < col; ++i)
-    {
-      if (abs(board[i] - board[col]) == abs(i - col))
-        return false; // Duplicate
-    }
-    
-    return true;
+  return true; // No conflicts
 }
 
 void print(const vector<int> &board)
@@ -73,6 +32,32 @@ void print(const vector<int> &board)
   for (int i = 0; i < board.size(); ++i)
   {
     cout << board[i] << " ";
+  }
+  cout << endl;
+}
+void nqueens(vector<int> &board, int col, int size)
+{
+  // Base case => All queens are placed
+  if (col == size)
+  {
+    // Board is valid
+    if (isValid(board, size, col) == true)
+    {
+      print(board);
+    }
+    return;
+
+
+  }
+  // Recursive case
+
+  for (int row = 0; row < size; ++row)
+  {
+    board[col] = row; // Place queen at row col
+    // Recursive call -> move in cols till i reach the boardsize
+    nqueens(board, col + 1, size);
+    // Bsvktrack
+    board[col] = -1;
   }
 }
 
