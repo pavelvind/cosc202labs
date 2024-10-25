@@ -1,0 +1,28 @@
+time log:
+
+Hour 1: I started by deciding to make the 15-puzzle game. I looked up how the game works and what rules I need to follow. 
+I watched some videos on Youtube as well.
+
+Hour 2: Set up my coding environment and made a new project. I wrote the header file SlidePuzzle.hpp and declared the class SlidePuzzle.
+I added functions like initialize(), isValid(), finalCheck(), swap(), and validMove().
+
+Hour 3: Thought about how to represent the board. At first, I used a 2D vector but then switched to a 
+1D vector to make things simpler. I also added comments to my code to keep track of my thoughts.
+
+Hour 4: Started writing the initialize() function to set up the puzzle board. 
+I began planning how to check if a move is valid and how to swap tiles. I also considered how to check if the puzzle is solved in the finalCheck() function.
+
+pros OOP:
+
+- Using a class helps keep all the related functions and variables together, making the code cleaner.
+- Once the class is made, it can be reused or extended for other projects or bigger puzzles.
+
+cons OOP:
+
+- If people are not used to OOP, it can take more time to write and understand the code.
+
+First of all, I wanted to represent the board with 2D vector but then I realized it might be just easier to use simple 1d vector. Actually it might be harder to solve but 
+that will be good challenge for me. Vectors are good because they are dynamic and have built-in functions that help with managing the elements.
+
+To test the program, I can create specific board setups and see if the moves work correctly. For example, I can place the blank space on the edge and try to move it outside
+the board to see if the validMove() function stops it. I can also set up a solved puzzle and see if finalCheck() recognizes it.

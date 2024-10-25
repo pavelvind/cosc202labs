@@ -31,7 +31,12 @@ void print(const vector<int> &board)
 {
   for (int i = 0; i < board.size(); ++i)
   {
-    cout << board[i] << " ";
+    if(i < board.size() -1){
+    cout << board[i] << ", ";
+    }
+    else{
+      cout << board[i];
+    }
   }
   cout << endl;
 }

@@ -17,7 +17,7 @@ bool isValid(const vector<int> &board, int size, int col)
     if (board[i] == board[col])
       return false;
 
-    // Check if queens are in the same diagonal
+    // Check if queens are in the same diagona
     if (abs(board[i] - board[col]) == abs(i - col))
       return false;
   }
@@ -37,9 +37,6 @@ void nqueens(vector<int> &board, int col, int size)
   // Base case => All queens are placed
   if (col == size)
   {
-    // Board is valid
-    // if (isValid(board, size, col) == true)
-
     print(board);
 
     return;
