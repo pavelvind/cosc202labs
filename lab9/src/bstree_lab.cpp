@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <cstdio>
+#include <algorithm>
 #include "bstree.hpp"
 using namespace std;
 using CS140::BSTree;
@@ -12,7 +13,7 @@ using CS140::BSTNode;
 
 int BSTree::Depth(const string &key) const
 {
-  int depth = -1;
+  int depth = 0;
   BSTNode *n;
   n = sentinel->right;
   // Traverse the tree
@@ -32,7 +33,9 @@ int BSTree::Depth(const string &key) const
 
 int BSTree::Height() const
 {
-  return -1;
+  
+  // Call recursive function from top of the tree
+  return recursive_find_height(sentinel->right);
 }
 
 vector <string> BSTree::Ordered_Keys() const
@@ -54,8 +57,17 @@ BSTree& BSTree::operator= (const BSTree &t)
 
 int BSTree::recursive_find_height(const BSTNode *n) const
 {
-  (void) n;
-  return -1;
+
+  // base case
+  if (n == sentinel)
+  {
+    return 0;
+  }
+  // Recursive case
+  int left_height = recursive_find_height(n->left);
+  int right_height = recursive_find_height(n->right);
+
+  return 1 + max(left_height, right_height);
 }
 
 void BSTree::make_key_vector(const BSTNode *n, vector<string> &v) const
