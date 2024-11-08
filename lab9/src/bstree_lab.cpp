@@ -12,16 +12,22 @@ using CS140::BSTNode;
 
 int BSTree::Depth(const string &key) const
 {
+  int depth = -1;
   BSTNode *n;
   n = sentinel->right;
   // Traverse the tree
   while (n != sentinel && key != n->key)
   {
     n = (key < n->key) ? n->left : n->right; // If key < node go left | If key > node go right
+    depth++;
+  }
+  if(n == sentinel){
+    return -1;
+  }
+  else{
+    return depth;
   }
 
-  (void) key;
-  return -1;
 }
 
 int BSTree::Height() const
