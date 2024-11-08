@@ -41,6 +41,7 @@ int BSTree::Height() const
 vector <string> BSTree::Ordered_Keys() const
 {
   vector <string> rv;
+  make_key_vector(sentinel->right, rv);
   return rv;
 }
     
@@ -72,6 +73,10 @@ int BSTree::recursive_find_height(const BSTNode *n) const
 
 void BSTree::make_key_vector(const BSTNode *n, vector<string> &v) const
 {
+  if (n == sentinel) return;
+  make_key_vector(n->left, v);
+  v.push_back(n->key);
+  make_key_vector(n->right, v);
   (void) n;
   (void) v;
 }
