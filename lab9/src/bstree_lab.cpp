@@ -12,10 +12,18 @@ using CS140::BSTNode;
 
 int BSTree::Depth(const string &key) const
 {
+  BSTNode *n;
+  n = sentinel->right;
+  // Traverse the tree
+  while (n != sentinel && key != n->key)
+  {
+    n = (key < n->key) ? n->left : n->right; // If key < node go left | If key > node go right
+  }
+
   (void) key;
   return -1;
 }
-           
+
 int BSTree::Height() const
 {
   return -1;
