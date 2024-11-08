@@ -52,7 +52,23 @@ BSTree::BSTree(const BSTree &t)
 
 BSTree& BSTree::operator= (const BSTree &t) 
 {
-  (void) t;
+  if (this != &t)
+  {
+    // Clear the existing tree
+    Clear();
+
+    vector<string> keys = t.Ordered_Keys();
+    vector<void *> values = t.Ordered_Vals();
+
+    BSTNode *newTree = make_balanced_tree(keys, values, 0, keys.size());
+    sentinel->right = newTree;
+
+    if (newTree != sentinel)
+    {
+      newTree->parent = sentinel;
+    }
+    size = t.size;
+  }
   return *this;
 }
 
@@ -81,14 +97,34 @@ void BSTree::make_key_vector(const BSTNode *n, vector<string> &v) const
   (void) v;
 }
 
-BSTNode *BSTree::make_balanced_tree(const vector<string> &sorted_keys, 
-                            const vector<void *> &vals,
-                            size_t first_index,
-                            size_t num_indices) const
+BSTNode *BSTree::make_balanced_tree(const vector<string> &sorted_keys, const vector<void *> &vals, size_t first_index, size_t num_indices) const
 {
-  (void) sorted_keys;
-  (void) vals;
-  (void) first_index;
-  (void) num_indices;
-  return NULL;
+  // Recursive function
+  // Base case
+  if (num_indices == 0)
+  {
+    return sentinel;
+  }
+
+  size_t middleElement = first_index + num_indices / 2;
+
+  BSTNode *temp = new BSTNode; // Temporary pointer of type BSTNode*
+  temp->key = sorted_keys[middleElement];
+  temp->val = vals[middleElement];
+  temp->left = sentinel;
+  temp->right = sentinel;
+  temp->parent = sentinel;
+
+  // Recursive case
+  temp->left = make_balanced_tree(sorted_keys, vals, first_index, middleElement - first_index);
+  if (temp->left != sentinel)
+  {
+    temp->left->parent = temp;
+  }
+  temp->right = make_balanced_tree(sorted_keys, vals, middleElement + 1, num_indices - (middleElement - first_index) - 1);
+  if (temp->right != sentinel)
+  {
+    temp->right->parent = temp;
+  }
+  return temp;
 }
