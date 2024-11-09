@@ -1,3 +1,5 @@
+// I used some of the dr. Planks notes here: https://web.eecs.utk.edu/~jplank/plank/classes/cs202/Notes/Trees/index.html
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -47,7 +49,14 @@ vector <string> BSTree::Ordered_Keys() const
     
 BSTree::BSTree(const BSTree &t)        
 {
-  (void) t;
+  sentinel = new BSTNode;
+  sentinel->parent = NULL;
+  sentinel->left = NULL;
+  sentinel->right = sentinel;
+  sentinel->key = "---SENTINEL---"; 
+  sentinel->val = NULL;
+  size = 0;
+  *this = t;
 }
 
 BSTree& BSTree::operator= (const BSTree &t) 
